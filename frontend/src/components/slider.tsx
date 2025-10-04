@@ -5,15 +5,14 @@ interface TimelineData {
   date: string;
   value: number;
   type: 'real' | 'forecast';
-  confidence?: number; // Para previsões: nível de confiança (0-1)
+  confidence?: number;
 }
 
 export function SliderComponent() {
   const [timeline, setTimeline] = useState(50);
   const totalSteps = 100;
-  const realDataThreshold = 50; // Ponto onde os dados reais terminam e a previsão começa
+  const realDataThreshold = 50;
 
-  // Dados de exemplo para demonstração
   const sampleData: TimelineData[] = [
     { date: '2024-01-01', value: 100, type: 'real' },
     { date: '2024-01-15', value: 120, type: 'real' },
@@ -26,13 +25,11 @@ export function SliderComponent() {
     { date: '2024-05-01', value: 150, type: 'forecast', confidence: 0.6 },
   ];
 
-  // Calcular o índice baseado na posição do slider
   const currentIndex = Math.floor(
     (timeline / totalSteps) * (sampleData.length - 1)
   );
   const currentData = sampleData[currentIndex];
 
-  // Configurações de cores
   const colors = {
     real: {
       track: 'bg-blue-500',
@@ -168,7 +165,7 @@ export function SliderComponent() {
           : `${Math.round((timeline - realDataThreshold) / 5)} dias à frente`}
       </div>
 
-      <div className="flex justify-between text-xs text-neutral-500 mt-2">
+      <div className="flex justify-between text-xs text-white mt-2">
         {sampleData
           .filter((_, index) => index % 2 === 0)
           .map((data, index) => (

@@ -5,9 +5,12 @@ import {
   ChevronDown,
   ChevronUp,
   Clock,
+  Cloud,
+  Database,
   Flower,
   MapPin,
   TrendingUp,
+  Wifi,
 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from './ui/button';
@@ -259,6 +262,74 @@ export function Sidebar() {
                 ))}
               </CardContent>
             </Card>
+
+            {/* Novo Card - Conexão com Base de Dados */}
+            <Card className="bg-white/10 dark:bg-neutral-900/50 backdrop-blur-md border-white/10 dark:border-neutral-800">
+              <CardHeader>
+                <CardTitle className="text-lg text-neutral-100 dark:text-neutral-200 flex items-center gap-2">
+                  <Database className="w-5 h-5 text-blue-400" />
+                  Conexão em Tempo Real
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-green-500/20 rounded-full">
+                      <Wifi className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-neutral-100">
+                        Status da Conexão
+                      </div>
+                      <div className="text-xs text-green-400">
+                        Conectado à Base de Dados
+                      </div>
+                    </div>
+                  </div>
+                  <div className="animate-pulse">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="text-center p-3 bg-white/5 rounded-lg">
+                    <Cloud className="w-6 h-6 mx-auto mb-2 text-blue-400" />
+                    <div className="text-lg font-bold text-neutral-100">
+                      24/7
+                    </div>
+                    <div className="text-xs text-neutral-400">
+                      Monitoramento Contínuo
+                    </div>
+                  </div>
+                  <div className="text-center p-3 bg-white/5 rounded-lg">
+                    <Clock className="w-6 h-6 mx-auto mb-2 text-cyan-400" />
+                    <div className="text-lg font-bold text-neutral-100">
+                      {'<'} 1s
+                    </div>
+                    <div className="text-xs text-neutral-400">
+                      Latência de Dados
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-blue-500/20 border border-blue-500/30 rounded-lg">
+                  <div className="text-sm text-blue-300">
+                    <strong>Dados em Tempo Real:</strong> Conecte-se à nossa
+                    base de dados para receber atualizações instantâneas sobre
+                    floração, atividade de abelhas e condições ambientais.
+                  </div>
+                </div>
+
+                <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:opacity-90">
+                  <Database className="w-4 h-4 mr-2" />
+                  Conectar Base de Dados
+                </Button>
+
+                <div className="text-xs text-neutral-400 text-center">
+                  Atualização automática a cada 30 segundos quando conectado
+                </div>
+              </CardContent>
+            </Card>
           </div>
         ) : (
           <div className="space-y-3">
@@ -373,6 +444,39 @@ export function Sidebar() {
                 )}
               </Card>
             ))}
+
+            {/* Card de Conexão na Visualização de Regiões */}
+            <Card className="bg-white/10 dark:bg-neutral-900/50 backdrop-blur-md border-white/10 dark:border-neutral-800">
+              <CardHeader>
+                <CardTitle className="text-lg text-neutral-100 dark:text-neutral-200 flex items-center gap-2">
+                  <Database className="w-5 h-5 text-blue-400" />
+                  Dados em Tempo Real
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="p-2 bg-green-500/20 rounded-full">
+                    <Wifi className="w-4 h-4 text-green-400" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-neutral-100">
+                      Base de Dados Online
+                    </div>
+                    <div className="text-xs text-green-400">
+                      Recebendo atualizações ao vivo
+                    </div>
+                  </div>
+                </div>
+
+                <Button
+                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:opacity-90"
+                  size="sm"
+                >
+                  <Cloud className="w-4 h-4 mr-2" />
+                  Conectar API
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         )}
       </ScrollArea>
