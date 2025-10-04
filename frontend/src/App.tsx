@@ -1,8 +1,7 @@
-import { Button } from '@/components/ui/button';
-
 import { useEffect, useRef, useState } from 'react';
 import { Sidebar } from './components/sidebar';
 import { SliderComponent } from './components/slider';
+import { ZoomControls } from './components/zoom-control';
 
 export function ObeeApp() {
   const [zoom, setZoom] = useState(2);
@@ -92,32 +91,14 @@ export function ObeeApp() {
 
       <SliderComponent />
 
-      <div className="absolute right-4 top-4 backdrop-blur-2xl bg-white/10 border border-white/10 rounded-2xl p-2 flex flex-col gap-2">
-        <Button
-          variant="ghost"
-          className="text-white hover:bg-white/20 w-10 h-10"
-          onClick={() => setZoom((z) => Math.min(z + 0.2, 4))}
-        >
-          +
-        </Button>
-        <Button
-          variant="ghost"
-          className="text-white hover:bg-white/20 w-10 h-10"
-          onClick={() => setZoom((z) => Math.max(z - 0.2, 0.3))}
-        >
-          −
-        </Button>
-        <Button
-          variant="ghost"
-          className="text-white hover:bg-white/20 w-10 h-10 text-xs"
-          onClick={() => {
-            setZoom(1);
-            setPosition({ x: 0, y: 0 });
-          }}
-        >
-          ⟲
-        </Button>
-      </div>
+      <ZoomControls
+        onZoomIn={() => setZoom((z) => Math.min(z + 0.2, 4))}
+        onZoomOut={() => setZoom((z) => Math.max(z - 0.2, 0.3))}
+        onReset={() => {
+          setZoom(1);
+          setPosition({ x: 0, y: 0 });
+        }}
+      />
     </div>
   );
 }
