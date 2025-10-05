@@ -42,7 +42,7 @@ export function Sidebar() {
 
   return (
     <>
-      <aside className="fixed left-6 top-6 bottom-6 w-72 rounded-2xl flex flex-col overflow-hidden shadow-lg border border-neutral-800 bg-black/80 backdrop-blur-xl">
+      <aside className="fixed left-6 top-6 bottom-6 w-72 rounded-2xl flex flex-col shadow-lg border border-neutral-800 bg-black/80 backdrop-blur-xl">
         <div className="px-6 py-4 border-b border-neutral-800 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-cyan-200 tracking-tight">
@@ -81,14 +81,14 @@ export function Sidebar() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="regioes" className="flex-1">
-            <ScrollArea className="px-2 py-3 overflow-auto">
+            <ScrollArea className="px-2 py-3">
               <div className="space-y-2">
                 {regions.map((region) => {
                   const isSelected = selectedRegion === region.name;
                   return (
                     <button
                       key={region.name}
-                      className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400
+                      className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none
                         ${
                           isSelected
                             ? 'bg-cyan-900 border-cyan-700'
