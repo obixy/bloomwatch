@@ -1,17 +1,17 @@
-import { format, parseISO } from 'date-fns';
-import React, { useState } from 'react';
-import { Slider } from './ui/slider';
+import { format, parseISO } from "date-fns";
+import React, { useState } from "react";
+import { Slider } from "./ui/slider";
 
 interface TimelineData {
   date: string;
   value: number;
-  type: 'real' | 'forecast';
+  type: "real" | "forecast";
   confidence?: number;
 }
 
-import { InfoButton } from './InfoButton';
-import { InfoModal } from './InfoModal';
-import { mapTimeline } from './mock';
+import { InfoButton } from "./InfoButton";
+import { InfoModal } from "./InfoModal";
+import { mapTimeline } from "./mock";
 
 interface SliderComponentProps {
   onChangeMapImage?: (key: string) => void;
@@ -20,9 +20,9 @@ interface SliderComponentProps {
 export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const timelineKeys = Object.keys(mapTimeline)
-    .filter((k) => k !== 'prevision' && k !== 'satellite-view')
+    .filter((k) => k !== "prevision" && k !== "satellite-view")
     .sort((a, b) => parseISO(a).getTime() - parseISO(b).getTime());
-  const extraKeys = ['prevision', 'satellite-view'].filter(
+  const extraKeys = ["prevision", "satellite-view"].filter(
     (k) => mapTimeline[k]
   );
   const orderedKeys = [...timelineKeys, ...extraKeys];
@@ -31,11 +31,11 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
     date: key,
     value: 0,
     type:
-      key === 'prevision'
-        ? 'forecast'
-        : key === 'satellite-view'
-        ? 'real'
-        : 'real',
+      key === "prevision"
+        ? "forecast"
+        : key === "satellite-view"
+        ? "real"
+        : "real",
   }));
 
   const totalSteps = sampleData.length - 1;
@@ -56,16 +56,16 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
           <div className="flex items-start justify-start gap-2 flex-col">
             <span
               className={`text-xs font-medium w-fit px-2 py-1 rounded-full ${
-                currentData.type === 'real'
-                  ? 'bg-blue-900 text-blue-300'
-                  : 'bg-orange-900 text-orange-300'
+                currentData.type === "real"
+                  ? "bg-blue-900 text-blue-300"
+                  : "bg-orange-900 text-orange-300"
               }`}
             >
-              {currentData.type === 'real' ? 'Actual Data' : 'Forecast'}
+              {currentData.type === "real" ? "Actual Data" : "Forecast"}
             </span>
             <span className="text-lg font-semibold text-white tracking-tight">
-              {currentData.type === 'real'
-                ? format(parseISO(currentData.date), 'dd/MM/yyyy')
+              {currentData.type === "real"
+                ? format(parseISO(currentData.date), "dd/MM/yyyy")
                 : `4-Year Forecast`}
             </span>
           </div>
@@ -89,13 +89,13 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
             <span
               key={data.date}
               className={`text-[10px] text-neutral-400 ${
-                idx === currentIndex ? 'font-bold text-white' : ''
+                idx === currentIndex ? "font-bold text-white" : ""
               }`}
-              style={{ minWidth: 32, textAlign: 'center' }}
+              style={{ minWidth: 32, textAlign: "center" }}
             >
-              {data.type === 'real'
-                ? format(parseISO(data.date), 'dd/MM')
-                : 'Forecast'}
+              {data.type === "real"
+                ? format(parseISO(data.date), "dd/MM")
+                : "Forecast"}
             </span>
           ))}
         </div>
@@ -104,18 +104,42 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
       <InfoModal
         open={showInfoModal}
         onOpenChange={setShowInfoModal}
-        title="Informações da Linha do Tempo"
+        title="Additional Information about predictions"
         description={
           <>
-            Aqui você pode colocar informações sobre o funcionamento da linha do
-            tempo, como explicações sobre os dados reais, previsões, navegação
-            entre datas e dicas para análise dos mapas.
-            <br />
-            <br />
-            (Edite este texto conforme necessário)
+            The prediction of the next bloom event was generated through a
+            multi-stage remote-sensing and machine-learning pipeline. <br />{" "}
+            First, multispectral indices were computed from Landsat surface
+            reflectance and thermal bands (B02–B06, B10, and B11). These
+            included vegetation- and bloom-sensitive metrics such as NDYI, NDVI,
+            ND_NIR_SWIR, and a custom Flower Intensity Index (FII).e. <br />{" "}
+            Next, a feature extraction step summarized each region’s temporal
+            and spatial context. For every tile and capture, statistical
+            descriptors (mean, max, min, and standard deviation) were
+            calculated, along with neighborhood micro-anomalies and temporal
+            deltas to capture short-term spectral changes. Seasonal
+            information—such as the week of year and day of year—was also
+            encoded to reflect phenological cycles.
+            <br /> These features were then used to train a
+            RandomForestRegressor, which learned relationships between past
+            bloom dynamics and environmental conditions. The trained model
+            produced two key outputs:
+            <ul style={{ listStyleType: "circle" }}>
+              <li>
+                A predicted Flower Intensity Index map estimating bloom
+                intensity for the next expected occurrence
+              </li>
+              <li>
+                A temporal prediction indicating when the next major bloom event
+                is most likely to occur
+              </li>
+            </ul>
+            This approach demonstrates how multispectral Earth observation data
+            can be transformed into actionable, data-driven forecasts of
+            ecological phenomena such as superblooms.
           </>
         }
-        buttonLabel="Fechar"
+        buttonLabel="Close"
       />
     </>
   );
