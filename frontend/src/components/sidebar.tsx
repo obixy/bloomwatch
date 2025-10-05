@@ -42,25 +42,23 @@ export function Sidebar() {
 
   return (
     <>
-      <aside
-        className="
-        absolute left-4 top-4 bottom-4 w-80 rounded-3xl flex flex-col overflow-hidden
-        shadow-[0_0_40px_rgba(0,0,0,0.5)]
-        backdrop-blur-2xl border border-black/20
-        bg-black/20 dark:bg-black/30
-      "
-      >
-        <div className="p-5 border-b border-white/10 dark:border-neutral-800">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-                Obee
-              </h1>
-              <p className="text-xs text-neutral-400 dark:text-neutral-500">
-                NASA Space Apps · 2025
-              </p>
-            </div>
+      <aside className="fixed left-6 top-6 bottom-6 w-72 rounded-2xl flex flex-col overflow-hidden shadow-lg border border-neutral-800 bg-black/80 backdrop-blur-xl">
+        <div className="px-6 py-4 border-b border-neutral-800 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-bold text-cyan-200 tracking-tight">
+              Obee
+            </h1>
+            <p className="text-xs text-neutral-500">NASA Space Apps · 2025</p>
           </div>
+          <Button
+            variant="outline"
+            className="text-xs px-3 py-1 rounded-lg border border-neutral-700 text-black"
+            onClick={() =>
+              alert('Funcionalidade de conectar outras bases em breve!')
+            }
+          >
+            Conectar Base
+          </Button>
         </div>
 
         <Tabs
@@ -68,34 +66,33 @@ export function Sidebar() {
           onValueChange={setTabValue}
           className="flex-1 flex flex-col"
         >
-          <TabsList className="flex border-b border-white/10 dark:border-neutral-800">
+          <TabsList className="flex border-neutral-800 bg-transparent px-2 mt-4">
             <TabsTrigger
               value="regioes"
-              className="flex-1 py-2 text-center font-semibold"
+              className="flex-1 py-2 text-center font-medium text-cyan-200"
             >
               Regiões
             </TabsTrigger>
             <TabsTrigger
               value="eventos"
-              className="flex-1 py-2 text-center font-semibold"
+              className="flex-1 py-2 text-center font-medium text-cyan-200"
             >
               Eventos
             </TabsTrigger>
           </TabsList>
           <TabsContent value="regioes" className="flex-1">
-            <ScrollArea className="px-4 py-4 overflow-auto">
-              <div className="space-y-3">
+            <ScrollArea className="px-2 py-3 overflow-auto">
+              <div className="space-y-2">
                 {regions.map((region) => {
                   const isSelected = selectedRegion === region.name;
                   return (
                     <button
                       key={region.name}
-                      className={`w-full text-left px-4 py-3 rounded-xl mb-2 transition-all border
-                        border-white/10 dark:border-neutral-800
+                      className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400
                         ${
                           isSelected
-                            ? 'bg-blue-500/40 dark:bg-blue-900/60 ring-2 ring-blue-400'
-                            : 'bg-white/10 dark:bg-neutral-900/50 hover:bg-blue-500/30'
+                            ? 'bg-cyan-900 border-cyan-700'
+                            : 'bg-transparent border-neutral-700 hover:bg-cyan-800'
                         }`}
                       onClick={() => {
                         if (region.name === 'Brasil') setShowModal(true);
@@ -104,19 +101,15 @@ export function Sidebar() {
                     >
                       <div className="flex flex-col">
                         <span
-                          className={`text-lg font-semibold ${
-                            isSelected
-                              ? 'text-blue-100 dark:text-cyan-200'
-                              : 'text-neutral-100 dark:text-neutral-200'
+                          className={`text-base font-semibold ${
+                            isSelected ? 'text-cyan-200' : 'text-neutral-200'
                           }`}
                         >
                           {region.name}
                         </span>
                         <span
                           className={`text-xs ${
-                            isSelected
-                              ? 'text-blue-200 dark:text-cyan-300'
-                              : 'text-neutral-400 dark:text-neutral-500'
+                            isSelected ? 'text-cyan-300' : 'text-neutral-400'
                           }`}
                         >
                           {region.desc}
@@ -129,17 +122,17 @@ export function Sidebar() {
             </ScrollArea>
           </TabsContent>
           <TabsContent value="eventos" className="flex-1">
-            <ScrollArea className="px-4 py-4 overflow-auto">
-              <div className="space-y-3">
+            <ScrollArea className="px-2 py-3 overflow-auto">
+              <div className="space-y-2">
                 {eventos.map((evento, idx) => (
                   <div
                     key={idx}
-                    className="w-full px-4 py-3 rounded-xl mb-2 border border-white/10 dark:border-neutral-800 bg-white/10 dark:bg-neutral-900/50"
+                    className="w-full px-3 py-2 rounded-lg border border-neutral-700 bg-neutral-900"
                   >
-                    <span className="text-lg font-semibold text-blue-100 dark:text-cyan-200">
+                    <span className="text-base font-semibold text-cyan-200">
                       {evento.title}
                     </span>
-                    <span className="block text-xs text-neutral-400 dark:text-neutral-500 mt-1">
+                    <span className="block text-xs text-neutral-400 mt-1">
                       {evento.desc}
                     </span>
                   </div>
@@ -148,14 +141,6 @@ export function Sidebar() {
             </ScrollArea>
           </TabsContent>
         </Tabs>
-
-        <div className="p-4 border-t border-white/10 dark:border-neutral-800">
-          <div className="flex gap-2">
-            <Button className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-400 hover:opacity-90">
-              Compartilhar
-            </Button>
-          </div>
-        </div>
       </aside>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
@@ -184,7 +169,7 @@ export function Sidebar() {
             para apoiar apicultores e pesquisadores no monitoramento ambiental.
           </DialogDescription>
           <DialogClose asChild>
-            <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 mt-2">
+            <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white mt-2 rounded-lg">
               Entendi
             </Button>
           </DialogClose>
