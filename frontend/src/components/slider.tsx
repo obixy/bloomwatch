@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Slider } from './ui/slider';
 
 interface TimelineData {
@@ -8,27 +8,43 @@ interface TimelineData {
   confidence?: number;
 }
 
-export function SliderComponent() {
+import { mapTimeline } from './mock';
+
+interface SliderComponentProps {
+  onChangeMapImage?: (key: string) => void;
+}
+
+export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
   const [timeline, setTimeline] = useState(50);
   const totalSteps = 100;
   const realDataThreshold = 50;
 
-  const sampleData: TimelineData[] = [
-    { date: '2024-01-01', value: 100, type: 'real' },
-    { date: '2024-01-15', value: 120, type: 'real' },
-    { date: '2024-02-01', value: 90, type: 'real' },
-    { date: '2024-02-15', value: 110, type: 'real' },
-    { date: '2024-03-01', value: 130, type: 'real' },
-    { date: '2024-03-15', value: 125, type: 'forecast', confidence: 0.9 },
-    { date: '2024-04-01', value: 140, type: 'forecast', confidence: 0.8 },
-    { date: '2024-04-15', value: 135, type: 'forecast', confidence: 0.7 },
-    { date: '2024-05-01', value: 150, type: 'forecast', confidence: 0.6 },
-  ];
+  // Usar as datas do mapTimeline para montar sampleData
+  const timelineKeys = Object.keys(mapTimeline);
+  const sampleData: TimelineData[] = timelineKeys.map((key) => ({
+    date: key,
+    value: 0,
+    type:
+      key === 'prevision'
+        ? 'forecast'
+        : key === 'satellite-view'
+        ? 'real'
+        : 'real',
+  }));
 
   const currentIndex = Math.floor(
     (timeline / totalSteps) * (sampleData.length - 1)
   );
   const currentData = sampleData[currentIndex];
+
+  // Chama callback ao mudar o slider
+  // Atualiza imagem do mapa conforme a data
+  // Só chama se a prop existir
+  React.useEffect(() => {
+    if (onChangeMapImage) {
+      onChangeMapImage(currentData.date);
+    }
+  }, [currentIndex, currentData.date, onChangeMapImage]);
 
   const colors = {
     real: {
