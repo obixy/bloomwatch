@@ -100,7 +100,7 @@ export function ObeeApp() {
           <img
             src={currentMapImage}
             alt="Satellite View"
-            className="w-full h-full object-cover select-none pointer-events-none"
+            className="w-full h-full object-contain select-none pointer-events-none"
             draggable={false}
           />
         </div>
