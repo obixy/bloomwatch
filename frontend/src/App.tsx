@@ -103,18 +103,19 @@ export function ObeeApp() {
             className="w-full h-full object-contain select-none pointer-events-none"
             draggable={false}
           />
+          {/* Grid fixa, não se move com a imagem */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: `
+                  linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+                `,
+              backgroundSize: `${50 * zoom}px ${50 * zoom}px`,
+              zIndex: 2,
+            }}
+          />
         </div>
-
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: `${50 * zoom}px ${50 * zoom}px`,
-          }}
-        />
       </div>
 
       <Sidebar />
