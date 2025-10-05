@@ -15,7 +15,6 @@ const images = [
 ];
 
 const previsionImage = importImage('prevision.png');
-const satelliteViewImage = importImage('satellite-view.png');
 
 export const mapTimeline: Record<string, string> = {};
 images.forEach(({ date, file }) => {
@@ -23,4 +22,3 @@ images.forEach(({ date, file }) => {
 });
 
 mapTimeline['prevision'] = previsionImage;
-mapTimeline['satellite-view'] = satelliteViewImage;
