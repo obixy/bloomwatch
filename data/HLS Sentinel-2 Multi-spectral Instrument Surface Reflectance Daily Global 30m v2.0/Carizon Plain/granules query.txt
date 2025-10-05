@@ -1,0 +1,9 @@
+\HLS Sentinel-2 Multi-spectral Instrument Surface Reflectance Daily Global 30m v2.0
+
+\Carrizo Plains region
+\20190318
+\20190328
+\20190407
+\20190412
+\20190417
+\20190422
