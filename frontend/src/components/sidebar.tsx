@@ -58,7 +58,7 @@ export function Sidebar() {
         <div className="px-2 py-4 border-b border-neutral-800 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-cyan-200 tracking-tight">
-              BloonWatch
+              OBloom
             </h1>
             <p className="text-xs text-neutral-500">NASA Space Apps · 2025</p>
           </div>
