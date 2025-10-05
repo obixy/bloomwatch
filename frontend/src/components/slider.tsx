@@ -58,12 +58,12 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
               : 'bg-orange-900 text-orange-300'
           }`}
         >
-          {currentData.type === 'real' ? 'Dados Reais' : 'Previsão'}
+          {currentData.type === 'real' ? 'Actual Data' : 'Forecast'}
         </span>
         <span className="text-lg font-semibold text-white tracking-tight">
           {currentData.type === 'real'
-            ? new Date(currentData.date).toLocaleDateString('pt-BR')
-            : `Previsão de 4 anos`}
+            ? new Date(currentData.date).toLocaleDateString('en-US')
+            : `4-Year Forecast`}
         </span>
       </div>
 
@@ -85,11 +85,11 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
             style={{ minWidth: 32, textAlign: 'center' }}
           >
             {data.type === 'real'
-              ? new Date(data.date).toLocaleDateString('pt-BR', {
+              ? new Date(data.date).toLocaleDateString('en-US', {
                   month: 'short',
                   day: 'numeric',
                 })
-              : 'Previsão'}
+              : 'Forecast'}
           </span>
         ))}
       </div>
