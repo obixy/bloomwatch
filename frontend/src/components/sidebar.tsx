@@ -167,7 +167,10 @@ export function Sidebar() {
             to support beekeepers and researchers in environmental monitoring.
           </DialogDescription>
           <DialogClose asChild>
-            <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white mt-2 rounded-lg">
+            <Button
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white mt-2 rounded-lg"
+              onClick={() => setSelectedRegion('California')}
+            >
               Understood
             </Button>
           </DialogClose>
