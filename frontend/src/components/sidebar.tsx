@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 
 export function Sidebar() {
   const [showRegionModal, setShowRegionModal] = useState(false);
+  const [showBrazilModal, setShowBrazilModal] = useState(false);
   const [showEventModal, setShowEventModal] = useState(false);
   const [tabValue, setTabValue] = useState('regions');
   const [selectedRegion, setSelectedRegion] = useState('California');
@@ -80,17 +81,49 @@ export function Sidebar() {
               <div className="space-y-2">
                 {regions.map((region) => {
                   const isSelected = selectedRegion === region.name;
-                  return (
-                    <button
-                      key={region.name}
-                      className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none
-                        ${
+                  if (region.name === 'Brazil') {
+                    return (
+                      <button
+                        key={region.name}
+                        className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none ${
                           isSelected
                             ? 'bg-cyan-900 border-cyan-700'
                             : 'bg-transparent border-neutral-700 hover:bg-cyan-800'
                         }`}
+                        onClick={() => {
+                          setShowBrazilModal(true);
+                          setSelectedRegion(region.name);
+                        }}
+                      >
+                        <div className="flex flex-col">
+                          <span
+                            className={`text-base font-semibold ${
+                              isSelected ? 'text-cyan-200' : 'text-neutral-200'
+                            }`}
+                          >
+                            {region.name}
+                          </span>
+                          <span
+                            className={`text-xs ${
+                              isSelected ? 'text-cyan-300' : 'text-neutral-400'
+                            }`}
+                          >
+                            {region.desc}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  }
+                  return (
+                    <button
+                      key={region.name}
+                      className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none ${
+                        isSelected
+                          ? 'bg-cyan-900 border-cyan-700'
+                          : 'bg-transparent border-neutral-700 hover:bg-cyan-800'
+                      }`}
                       onClick={() => {
-                        if (region.name === 'Brazil') setShowRegionModal(true);
+                        setShowRegionModal(true);
                         setSelectedRegion(region.name);
                       }}
                     >
@@ -163,6 +196,25 @@ export function Sidebar() {
           </>
         }
         buttonLabel="Entendi"
+      />
+      <InfoModal
+        open={showBrazilModal}
+        onOpenChange={(open) => {
+          setShowBrazilModal(open);
+          if (!open) setSelectedRegion('California');
+        }}
+        title="Informações sobre o Brasil"
+        description={
+          <>
+            Aqui você pode colocar informações específicas sobre a região do
+            Brasil, como dados agrícolas, polinização, alertas e recomendações
+            para apicultores.
+            <br />
+            <br />
+            (Edite este texto conforme necessário)
+          </>
+        }
+        buttonLabel="Sair"
         onButtonClick={() => setSelectedRegion('California')}
       />
       <InfoModal
