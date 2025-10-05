@@ -49,7 +49,7 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
   }, [currentIndex, currentData.date, onChangeMapImage]);
 
   return (
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[400px] bg-black/60 border border-black/30 rounded-xl px-4 py-3 shadow-lg flex flex-col gap-2 items-center">
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[600px] bg-black/60 border border-black/30 rounded-xl px-4 py-3 shadow-lg flex flex-col gap-2 items-center">
       <div className="flex flex-col items-center gap-1 mb-2">
         <span
           className={`text-xs font-medium px-2 py-1 rounded-full ${
@@ -75,7 +75,7 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
         className="w-full"
       />
 
-      <div className="flex justify-between w-full mt-2">
+      <div className="flex justify-between w-full mt-2 gap-2">
         {sampleData.map((data, idx) => (
           <span
             key={data.date}
@@ -84,10 +84,12 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
             }`}
             style={{ minWidth: 32, textAlign: 'center' }}
           >
-            {new Date(data.date).toLocaleDateString('pt-BR', {
-              month: 'short',
-              day: 'numeric',
-            })}
+            {data.type === 'real'
+              ? new Date(data.date).toLocaleDateString('pt-BR', {
+                  month: 'short',
+                  day: 'numeric',
+                })
+              : 'Previsão'}
           </span>
         ))}
       </div>
