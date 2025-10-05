@@ -18,11 +18,11 @@ export function Sidebar() {
   const regions = [
     {
       name: 'Brazil',
-      desc: 'Monitoring of flowering and beekeeping',
+      desc: 'Agricultural crops and pollination',
     },
     {
       name: 'California',
-      desc: 'Agricultural crops and pollination',
+      desc: 'Monitoring of flowering and beekeeping',
     },
   ];
   const events = [
@@ -43,7 +43,7 @@ export function Sidebar() {
   return (
     <>
       <aside className="fixed left-6 top-6 bottom-6 w-72 rounded-2xl flex flex-col shadow-lg border border-neutral-800 bg-black/80 backdrop-blur-xl">
-        <div className="px-6 py-4 border-b border-neutral-800 flex items-center justify-between">
+        <div className="px-2 py-4 border-b border-neutral-800 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-cyan-200 tracking-tight">
               Obee
