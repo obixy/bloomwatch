@@ -13,30 +13,30 @@ import { Button } from './ui/button';
 
 export function Sidebar() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedRegion, setSelectedRegion] = useState('Califórnia');
-  const [tabValue, setTabValue] = useState('regioes');
+  const [tabValue, setTabValue] = useState('regions');
+  const [selectedRegion, setSelectedRegion] = useState('California');
   const regions = [
     {
-      name: 'Brasil',
-      desc: 'Monitoramento de floração e apicultura',
+      name: 'Brazil',
+      desc: 'Monitoring of flowering and beekeeping',
     },
     {
-      name: 'Califórnia',
-      desc: 'Safras agrícolas e polinização',
+      name: 'California',
+      desc: 'Agricultural crops and pollination',
     },
   ];
-  const eventos = [
+  const events = [
     {
-      title: 'Alerta de Floração',
-      desc: 'Previsão de floração intensa nas próximas semanas.',
+      title: 'Flowering Alert',
+      desc: 'Intense flowering forecast for the coming weeks.',
     },
     {
-      title: 'Risco de geada',
-      desc: 'Temperaturas baixas podem afetar as colmeias.',
+      title: 'Frost Risk',
+      desc: 'Low temperatures may affect hives.',
     },
     {
-      title: 'Alta atividade de abelhas',
-      desc: 'Monitoramento indica pico de polinização.',
+      title: 'High Bee Activity',
+      desc: 'Monitoring indicates a peak in pollination.',
     },
   ];
 
@@ -54,10 +54,10 @@ export function Sidebar() {
             variant="outline"
             className="text-xs px-3 py-1 rounded-lg border border-neutral-700 text-black"
             onClick={() =>
-              alert('Funcionalidade de conectar outras bases em breve!')
+              alert('Feature to connect other databases coming soon!')
             }
           >
-            Conectar Base
+            Connect Base
           </Button>
         </div>
 
@@ -68,19 +68,19 @@ export function Sidebar() {
         >
           <TabsList className="flex border-neutral-800 bg-transparent px-2 mt-4">
             <TabsTrigger
-              value="regioes"
+              value="regions"
               className="flex-1 py-2 text-center font-medium text-cyan-200"
             >
-              Regiões
+              Regions
             </TabsTrigger>
             <TabsTrigger
-              value="eventos"
+              value="events"
               className="flex-1 py-2 text-center font-medium text-cyan-200"
             >
-              Eventos
+              Events
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="regioes" className="flex-1">
+          <TabsContent value="regions" className="flex-1">
             <ScrollArea className="px-2 py-3">
               <div className="space-y-2">
                 {regions.map((region) => {
@@ -95,7 +95,7 @@ export function Sidebar() {
                             : 'bg-transparent border-neutral-700 hover:bg-cyan-800'
                         }`}
                       onClick={() => {
-                        if (region.name === 'Brasil') setShowModal(true);
+                        if (region.name === 'Brazil') setShowModal(true);
                         setSelectedRegion(region.name);
                       }}
                     >
@@ -121,19 +121,19 @@ export function Sidebar() {
               </div>
             </ScrollArea>
           </TabsContent>
-          <TabsContent value="eventos" className="flex-1">
+          <TabsContent value="events" className="flex-1">
             <ScrollArea className="px-2 py-3 overflow-auto">
               <div className="space-y-2">
-                {eventos.map((evento, idx) => (
+                {events.map((event, idx) => (
                   <div
                     key={idx}
                     className="w-full px-3 py-2 rounded-lg border border-neutral-700 bg-neutral-900"
                   >
                     <span className="text-base font-semibold text-cyan-200">
-                      {evento.title}
+                      {event.title}
                     </span>
                     <span className="block text-xs text-neutral-400 mt-1">
-                      {evento.desc}
+                      {event.desc}
                     </span>
                   </div>
                 ))}
@@ -147,30 +147,28 @@ export function Sidebar() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-blue-600 dark:text-cyan-300">
-              Como utilizar a aplicação
+              How to use the application
             </DialogTitle>
           </DialogHeader>
           <DialogDescription className="mb-4 text-neutral-700 dark:text-neutral-300">
-            Bem-vindo ao Obee!
+            Welcome to Obee!
             <br />
             <br />
-            1. Selecione uma região para visualizar dados de floração, atividade
-            das abelhas e alertas.
+            1. Select a region to view flowering data, bee activity, and alerts.
             <br />
-            2. Explore as tendências e espécies dominantes.
+            2. Explore trends and dominant species.
             <br />
-            3. Utilize os controles de zoom e filtros para analisar áreas
-            específicas.
+            3. Use zoom controls and filters to analyze specific areas.
             <br />
-            4. Compartilhe informações relevantes com sua comunidade.
+            4. Share relevant information with your community.
             <br />
             <br />
-            Esta plataforma integra dados de satélite e inteligência artificial
-            para apoiar apicultores e pesquisadores no monitoramento ambiental.
+            This platform integrates satellite data and artificial intelligence
+            to support beekeepers and researchers in environmental monitoring.
           </DialogDescription>
           <DialogClose asChild>
             <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white mt-2 rounded-lg">
-              Entendi
+              Understood
             </Button>
           </DialogClose>
         </DialogContent>
