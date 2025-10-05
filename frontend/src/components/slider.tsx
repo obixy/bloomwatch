@@ -1,3 +1,4 @@
+import { format, parseISO } from 'date-fns';
 import React, { useState } from 'react';
 import { Slider } from './ui/slider';
 
@@ -8,7 +9,9 @@ interface TimelineData {
   confidence?: number;
 }
 
+import { Plus } from 'lucide-react';
 import { mapTimeline } from './mock';
+import { Button } from './ui/button';
 
 interface SliderComponentProps {
   onChangeMapImage?: (key: string) => void;
@@ -17,7 +20,7 @@ interface SliderComponentProps {
 export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
   const timelineKeys = Object.keys(mapTimeline)
     .filter((k) => k !== 'prevision' && k !== 'satellite-view')
-    .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    .sort((a, b) => parseISO(a).getTime() - parseISO(b).getTime());
   const extraKeys = ['prevision', 'satellite-view'].filter(
     (k) => mapTimeline[k]
   );
@@ -47,21 +50,27 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
 
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[600px] bg-black/60 border border-black/30 rounded-xl px-4 py-3 shadow-lg flex flex-col gap-2 items-center">
-      <div className="flex flex-col items-center gap-1 mb-2">
-        <span
-          className={`text-xs font-medium px-2 py-1 rounded-full ${
-            currentData.type === 'real'
-              ? 'bg-blue-900 text-blue-300'
-              : 'bg-orange-900 text-orange-300'
-          }`}
-        >
-          {currentData.type === 'real' ? 'Actual Data' : 'Forecast'}
-        </span>
-        <span className="text-lg font-semibold text-white tracking-tight">
-          {currentData.type === 'real'
-            ? new Date(currentData.date).toLocaleDateString('en-US')
-            : `4-Year Forecast`}
-        </span>
+      <div className="flex items-center justify-between w-full gap-1 mb-2">
+        <div className="flex items-start justify-start gap-2 flex-col">
+          <span
+            className={`text-xs font-medium w-fit px-2 py-1 rounded-full ${
+              currentData.type === 'real'
+                ? 'bg-blue-900 text-blue-300'
+                : 'bg-orange-900 text-orange-300'
+            }`}
+          >
+            {currentData.type === 'real' ? 'Actual Data' : 'Forecast'}
+          </span>
+          <span className="text-lg font-semibold text-white tracking-tight">
+            {currentData.type === 'real'
+              ? format(parseISO(currentData.date), 'dd/MM/yyyy')
+              : `4-Year Forecast`}
+          </span>
+        </div>
+
+        <Button variant="outline" className="text-black">
+          <Plus />
+        </Button>
       </div>
 
       <Slider
@@ -82,10 +91,7 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
             style={{ minWidth: 32, textAlign: 'center' }}
           >
             {data.type === 'real'
-              ? new Date(data.date).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                })
+              ? format(parseISO(data.date), 'dd/MM')
               : 'Forecast'}
           </span>
         ))}
