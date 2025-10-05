@@ -130,6 +130,24 @@ export function ObeeApp() {
           setPosition({ x: 0, y: 0 });
         }}
       />
+
+      {currentMapImage && currentMapImage.includes('prevision') && (
+        <div
+          className="fixed bottom-6 right-6 bg-neutral-900 bg-opacity-80 rounded-lg shadow-lg p-4 text-sm z-50 border border-neutral-700"
+          style={{ minWidth: '220px', maxWidth: '320px' }}
+        >
+          <h3 className="font-medium text-base mb-2 text-green-300">
+            Forecast
+          </h3>
+
+          <div className="flex flex-col gap-1">
+            <span className="inline-flex items-center gap-2">
+              <span className="w-4 h-4 rounded bg-[#fee723] inline-block border border-yellow-700" />{' '}
+              Blooming hotspot
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
