@@ -15,9 +15,6 @@ interface SliderComponentProps {
 }
 
 export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
-  const [timeline, setTimeline] = useState(50);
-  const totalSteps = 100;
-
   const timelineKeys = Object.keys(mapTimeline)
     .filter((k) => k !== 'prevision' && k !== 'satellite-view')
     .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
@@ -37,9 +34,9 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
         : 'real',
   }));
 
-  const currentIndex = Math.floor(
-    (timeline / totalSteps) * (sampleData.length - 1)
-  );
+  const totalSteps = sampleData.length - 1;
+  const [timeline, setTimeline] = useState(0);
+  const currentIndex = timeline;
   const currentData = sampleData[currentIndex];
 
   React.useEffect(() => {
