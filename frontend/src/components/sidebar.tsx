@@ -1,53 +1,52 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
-import { InfoButton } from "./InfoButton";
-import { InfoModal } from "./InfoModal";
-import { Button } from "./ui/button";
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useState } from 'react';
+import { InfoButton } from './InfoButton';
+import { InfoModal } from './InfoModal';
 
 export function Sidebar() {
   const [showRegionModal, setShowRegionModal] = useState(false);
   const [showBrazilModal, setShowBrazilModal] = useState(false);
   const [showEventModal, setShowEventModal] = useState(false);
-  const [tabValue, setTabValue] = useState("regions");
-  const [selectedRegion, setSelectedRegion] = useState("California");
+  const [tabValue, setTabValue] = useState('regions');
+  const [selectedRegion, setSelectedRegion] = useState('California');
   const regions = [
     {
-      name: "Brazil - Amazonas",
+      name: 'Brazil - Amazonas',
       descNLine: [
         'Amazon rainforest region region (-3.4627875,-62.2373404), granules: "HLS.S30.T20MNB._"',
-        "Important target for preservation missions and natural sciences.",
+        'Important target for preservation missions and natural sciences.',
       ],
     },
     {
-      name: "California",
+      name: 'California',
       descNLine: [
         'Carrizo Plains region (35.1898639,-119.8632972), granules: "HLS.S30.T10SGD._"',
-        "Superblooms can happen in the northeast region between March and April.",
+        'Superblooms can happen in the northeast region between March and April.',
       ],
     },
   ];
   const events = [
     {
-      title: "Bloom Tracking",
+      title: 'Bloom Tracking',
       descNLine: [
-        "Tracking multiple simultanous flower bloomings in this region.",
-        "Usually happening after after heavy raining in the desert, this increases polinator population, activity and efficiency.",
+        'Tracking multiple simultanous flower bloomings in this region.',
+        'Usually happening after after heavy raining in the desert, this increases polinator population, activity and efficiency.',
       ],
     },
     {
-      title: "Snow Tracking",
+      title: 'Snow Tracking',
       descNLine: [
-        "Tracking unusual amounts of snow in this region.",
-        "Snow and low temperatures are unusual in this region, and dectecting possible threats to polinator population and activity is crucial to devise response plans.",
+        'Tracking unusual amounts of snow in this region.',
+        'Snow and low temperatures are unusual in this region, and dectecting possible threats to polinator population and activity is crucial to devise response plans.',
       ],
     },
     {
-      title: "Forest Preservation Tracking",
+      title: 'Forest Preservation Tracking',
       descNLine: [
-        "Monitoring forest health and tracking illegal deforestation activities.",
-        "Satellite imagery can detect changes in forest cover, helping identify unauthorized logging and illegal land clearing.",
-        "Tracking populations of endangered vegetation species to assess threats to biodiversity and promote conservation efforts.",
+        'Monitoring forest health and tracking illegal deforestation activities.',
+        'Satellite imagery can detect changes in forest cover, helping identify unauthorized logging and illegal land clearing.',
+        'Tracking populations of endangered vegetation species to assess threats to biodiversity and promote conservation efforts.',
       ],
     },
   ];
@@ -62,15 +61,6 @@ export function Sidebar() {
             </h1>
             <p className="text-xs text-neutral-500">NASA Space Apps · 2025</p>
           </div>
-          <Button
-            variant="outline"
-            className="text-xs px-3 py-1 rounded-lg border border-neutral-700 text-black"
-            onClick={() =>
-              alert("Feature to connect other databases coming soon!")
-            }
-          >
-            Connect Base
-          </Button>
         </div>
 
         <Tabs
@@ -97,37 +87,22 @@ export function Sidebar() {
               <div className="space-y-2">
                 {regions.map((region) => {
                   const isSelected = selectedRegion === region.name;
-                  if (region.name === "Brazil") {
+                  if (region.name === 'Brazil - Amazonas') {
                     return (
                       <button
                         key={region.name}
-                        className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none ${
-                          isSelected
-                            ? "bg-cyan-900 border-cyan-700"
-                            : "bg-transparent border-neutral-700 hover:bg-cyan-800"
-                        }`}
+                        className="w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none bg-transparent border-neutral-700 hover:bg-cyan-800"
                         onClick={() => {
                           setShowBrazilModal(true);
-                          setSelectedRegion(region.name);
                         }}
                       >
                         <div className="flex flex-col">
-                          <span
-                            className={`text-base font-semibold ${
-                              isSelected ? "text-cyan-200" : "text-neutral-200"
-                            }`}
-                          >
+                          <span className="text-base font-semibold text-neutral-200">
                             {region.name}
                           </span>
                           {region.descNLine &&
                             region.descNLine.map((desc) => (
-                              <span
-                                className={`text-xs ${
-                                  isSelected
-                                    ? "text-cyan-300"
-                                    : "text-neutral-400"
-                                }`}
-                              >
+                              <span className="text-xs text-neutral-400">
                                 {desc}
                               </span>
                             ))}
@@ -140,8 +115,8 @@ export function Sidebar() {
                       key={region.name}
                       className={`w-full text-left px-3 py-2 rounded-lg border transition-colors focus:outline-none ${
                         isSelected
-                          ? "bg-cyan-900 border-cyan-700"
-                          : "bg-transparent border-neutral-700 hover:bg-cyan-800"
+                          ? 'bg-cyan-900 border-cyan-700'
+                          : 'bg-transparent border-neutral-700 hover:bg-cyan-800'
                       }`}
                       onClick={() => {
                         setShowRegionModal(true);
@@ -151,7 +126,7 @@ export function Sidebar() {
                       <div className="flex flex-col">
                         <span
                           className={`text-base font-semibold ${
-                            isSelected ? "text-cyan-200" : "text-neutral-200"
+                            isSelected ? 'text-cyan-200' : 'text-neutral-200'
                           }`}
                         >
                           {region.name}
@@ -161,8 +136,8 @@ export function Sidebar() {
                             <span
                               className={`text-xs ${
                                 isSelected
-                                  ? "text-cyan-300"
-                                  : "text-neutral-400"
+                                  ? 'text-cyan-300'
+                                  : 'text-neutral-400'
                               }`}
                             >
                               {desc}
@@ -216,17 +191,17 @@ export function Sidebar() {
         title="Additional Region Information"
         description={
           <>
-            New regions can be effectively supported and monitored using any{" "}
+            New regions can be effectively supported and monitored using any{' '}
             <b>multispectral satellite dataset</b>, which provides detailed
             insights across a variety of domains. Whether it’s for environmental
             monitoring, urban planning, or disaster management, the flexibility
             of these datasets allows for extensive coverage.
             <br />
-            These regions can be continuously tracked by importing{" "}
+            These regions can be continuously tracked by importing{' '}
             <b>satellite data</b> through ongoing mission subscriptions. One
-            such resource is the{" "}
+            such resource is the{' '}
             <a
-              style={{ color: "blue" }}
+              style={{ color: 'blue' }}
               href="https://www.earthdata.nasa.gov/data/catalog/lpcloud-hlss30-2.0"
               target="_blank"
             >
@@ -235,12 +210,12 @@ export function Sidebar() {
             , which offers high-resolution datasets for accurate monitoring.
             Subscribing to these services allows for the application of advanced
             analysis techniques, including:
-            <ul style={{ listStyleType: "circle" }}>
-              <li style={{ fontWeight: "bold" }}>Land Cover Classification</li>
-              <li style={{ fontWeight: "bold" }}>
+            <ul style={{ listStyleType: 'circle' }}>
+              <li style={{ fontWeight: 'bold' }}>Land Cover Classification</li>
+              <li style={{ fontWeight: 'bold' }}>
                 Vegetation Index Monitoring
               </li>
-              <li style={{ fontWeight: "bold" }}>Urban Growth Detection</li>
+              <li style={{ fontWeight: 'bold' }}>Urban Growth Detection</li>
               <li>And many more advanced methods.</li>
             </ul>
             By utilizing data from these sources, you can monitor dynamic
@@ -254,7 +229,7 @@ export function Sidebar() {
         open={showBrazilModal}
         onOpenChange={(open) => {
           setShowBrazilModal(open);
-          if (!open) setSelectedRegion("California");
+          if (!open) setSelectedRegion('California');
         }}
         title="Informações sobre o Brasil"
         description={
@@ -268,7 +243,7 @@ export function Sidebar() {
           </>
         }
         buttonLabel="Sair"
-        onButtonClick={() => setSelectedRegion("California")}
+        onButtonClick={() => setSelectedRegion('California')}
       />
       <InfoModal
         open={showEventModal}
@@ -285,16 +260,16 @@ export function Sidebar() {
             detection algorithms, including:
             <ul
               style={{
-                listStyleType: "circle",
+                listStyleType: 'circle',
               }}
             >
               <li>Principal Component Analysis (PCA) </li>
               <li>Mixture Residual Reflectance</li>
               <li>And other specialized techniques.</li>
             </ul>
-            By leveraging data collected from the{" "}
+            By leveraging data collected from the{' '}
             <a
-              style={{ color: "blue" }}
+              style={{ color: 'blue' }}
               href="https://www.sciencebase.gov/catalog/item/5807a2a2e4b0841e59e3a18d"
               target="_blank"
             >
