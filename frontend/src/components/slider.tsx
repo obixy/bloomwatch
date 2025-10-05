@@ -9,15 +9,16 @@ interface TimelineData {
   confidence?: number;
 }
 
-import { Plus } from 'lucide-react';
+import { InfoButton } from './InfoButton';
+import { InfoModal } from './InfoModal';
 import { mapTimeline } from './mock';
-import { Button } from './ui/button';
 
 interface SliderComponentProps {
   onChangeMapImage?: (key: string) => void;
 }
 
 export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const timelineKeys = Object.keys(mapTimeline)
     .filter((k) => k !== 'prevision' && k !== 'satellite-view')
     .sort((a, b) => parseISO(a).getTime() - parseISO(b).getTime());
@@ -49,53 +50,73 @@ export function SliderComponent({ onChangeMapImage }: SliderComponentProps) {
   }, [currentIndex, currentData.date, onChangeMapImage]);
 
   return (
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[600px] bg-black/60 border border-black/30 rounded-xl px-4 py-3 shadow-lg flex flex-col gap-2 items-center">
-      <div className="flex items-center justify-between w-full gap-1 mb-2">
-        <div className="flex items-start justify-start gap-2 flex-col">
-          <span
-            className={`text-xs font-medium w-fit px-2 py-1 rounded-full ${
-              currentData.type === 'real'
-                ? 'bg-blue-900 text-blue-300'
-                : 'bg-orange-900 text-orange-300'
-            }`}
-          >
-            {currentData.type === 'real' ? 'Actual Data' : 'Forecast'}
-          </span>
-          <span className="text-lg font-semibold text-white tracking-tight">
-            {currentData.type === 'real'
-              ? format(parseISO(currentData.date), 'dd/MM/yyyy')
-              : `4-Year Forecast`}
-          </span>
+    <>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[600px] bg-black/60 border border-black/30 rounded-xl px-4 py-3 shadow-lg flex flex-col gap-2 items-center">
+        <div className="flex items-center justify-between w-full gap-1 mb-2">
+          <div className="flex items-start justify-start gap-2 flex-col">
+            <span
+              className={`text-xs font-medium w-fit px-2 py-1 rounded-full ${
+                currentData.type === 'real'
+                  ? 'bg-blue-900 text-blue-300'
+                  : 'bg-orange-900 text-orange-300'
+              }`}
+            >
+              {currentData.type === 'real' ? 'Actual Data' : 'Forecast'}
+            </span>
+            <span className="text-lg font-semibold text-white tracking-tight">
+              {currentData.type === 'real'
+                ? format(parseISO(currentData.date), 'dd/MM/yyyy')
+                : `4-Year Forecast`}
+            </span>
+          </div>
+
+          <InfoButton
+            className="text-black opacity-100 bg-white"
+            onClick={() => setShowInfoModal(true)}
+          />
         </div>
 
-        <Button variant="outline" className="text-black">
-          <Plus />
-        </Button>
+        <Slider
+          value={[timeline]}
+          onValueChange={(v) => setTimeline(v[0])}
+          max={totalSteps}
+          step={1}
+          className="w-full"
+        />
+
+        <div className="flex justify-between w-full mt-2 gap-2">
+          {sampleData.map((data, idx) => (
+            <span
+              key={data.date}
+              className={`text-[10px] text-neutral-400 ${
+                idx === currentIndex ? 'font-bold text-white' : ''
+              }`}
+              style={{ minWidth: 32, textAlign: 'center' }}
+            >
+              {data.type === 'real'
+                ? format(parseISO(data.date), 'dd/MM')
+                : 'Forecast'}
+            </span>
+          ))}
+        </div>
       </div>
 
-      <Slider
-        value={[timeline]}
-        onValueChange={(v) => setTimeline(v[0])}
-        max={totalSteps}
-        step={1}
-        className="w-full"
+      <InfoModal
+        open={showInfoModal}
+        onOpenChange={setShowInfoModal}
+        title="Informações da Linha do Tempo"
+        description={
+          <>
+            Aqui você pode colocar informações sobre o funcionamento da linha do
+            tempo, como explicações sobre os dados reais, previsões, navegação
+            entre datas e dicas para análise dos mapas.
+            <br />
+            <br />
+            (Edite este texto conforme necessário)
+          </>
+        }
+        buttonLabel="Fechar"
       />
-
-      <div className="flex justify-between w-full mt-2 gap-2">
-        {sampleData.map((data, idx) => (
-          <span
-            key={data.date}
-            className={`text-[10px] text-neutral-400 ${
-              idx === currentIndex ? 'font-bold text-white' : ''
-            }`}
-            style={{ minWidth: 32, textAlign: 'center' }}
-          >
-            {data.type === 'real'
-              ? format(parseISO(data.date), 'dd/MM')
-              : 'Forecast'}
-          </span>
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
